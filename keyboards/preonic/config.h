@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define AUDIO_VOICES
 #define C6_AUDIO
-
+#define AUDIO_CLICKY
 #define BACKLIGHT_PIN B7
 
 /* COL2ROW or ROW2COL */
@@ -54,6 +54,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* number of backlight levels */
 #define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_BREATHING
+#define BREATHING_PERIOD 6
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
