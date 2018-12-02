@@ -57,34 +57,41 @@ enum macro_keycodes {
 #define KC_GUIEI GUI_T(KC_LANG2)
 #define KC_ALTKN ALT_T(KC_LANG1)
 
-#define KC_SWLBRC LALT(KC_LBRC)
-#define KC_SWQUOT LALT(KC_QUOT)
-#define KC_SWSCLN LALT(KC_SCLN)
-#define KC_MYCAPS MT(MOD_LCTL, KC_ESC)
-#define KC_MYLOWER LT(KC_LOWER, KC_DEL)
-#define KC_MYRAISE LT(KC_RAISE, KC_ENT)
+#define KC_MYLOWER LT(_LOWER, KC_DEL)
+#define KC_MYRAISE LT(_RAISE, KC_ENT)
 #define KC_MYSFT MT(MOD_LSFT, KC_BSPC)
-#define KC_MYZERO MT(MOD_RCTL, KC_0)
-#define SE_SLASH S(KC_7)
-#define SE_AT RALT(KC_2)
-#define SE_AMPR S(KC_6)
-#define SE_LPRN S(KC_8)
-#define SE_RPRN S(KC_9)
-#define SE_DQUO S(KC_2)
-#define SE_DLR RALT(KC_4)
-#define SE_LCBR RALT(KC_7)
-#define SE_RCBR RALT(KC_0)
-#define SE_LBRC RALT(KC_8)
-#define SE_RBRC RALT(KC_9)
-#define SE_EQAL S(KC_0)
-#define SE_GBP RALT(KC_3)
-#define SE_TILD RALT(KC_RBRC)
-#define SE_EURO RALT(KC_E)
+#define KC_SE_SLSH S(KC_7)
+#define KC_SE_AT RALT(KC_2)
+#define KC_SE_AMPR S(KC_6)
+#define KC_SE_LPRN S(KC_8)
+#define KC_SE_RPRN S(KC_9)
+#define KC_SE_QUO KC_BSLS
+#define KC_SE_DQUO S(KC_2)
+#define KC_SE_DLR RALT(KC_4)
+#define KC_SE_LCBR RALT(KC_7)
+#define KC_SE_RCBR RALT(KC_0)
+#define KC_SE_LBRC RALT(KC_8)
+#define KC_SE_RBRC RALT(KC_9)
+#define KC_SE_EQAL S(KC_0)
+#define KC_SE_GBP RALT(KC_3)
+#define KC_SE_TILD RALT(KC_RBRC)
+#define KC_SE_EURO RALT(KC_E)
 #define KC_SE_AA KC_LBRC
 #define KC_SE_OE KC_SCLN
 #define KC_SE_AE KC_QUOT
 #define KC_PLAYP KC_MEDIA_PLAY_PAUSE
 #define KC_MUTE KC_AUDIO_MUTE
+#define KC_SE_CIRC KC_RCBR
+#define KC_SE_PARA KC_GRAVE
+#define KC_SE_HALF KC_TILD
+#define KC_SE_ACUT KC_EQL
+#define KC_SE_GRAV KC_PLUS
+#define KC_SE_MORE S(KC_NUBS)
+#define KC_SE_LESS KC_NUBS
+#define KC_SE_PLUS KC_MINS
+#define KC_SE_STAR KC_PIPE
+#define KC_SE_QUES S(KC_MINS)
+#define KC_SE_BSLH RALT(KC_MINS)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_kc( \
@@ -101,16 +108,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   
   [_LOWER] = LAYOUT_kc( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,     1,     2,     3,     4,     5,                      6,     7,     8,     9,     0,  BSPC,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      CTLTB,    F1,    F2,    F3,    F4,    F5,                     F6,    F7,    F8,    F9,   F10, XXXXX,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LSFT,   F11,   F12,   F13,   F14,   F15,                    F16,   F17,   F18,   F19,   F20, XXXXX,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  GUIEI, MYLOWER,   SPC,      ENT, MYRAISE, ALTKN \
-                              //`--------------------'  `--------------------'
+  //,-----------------------------------------------.                  ,-----------------------------------------------.
+    SE_EURO,    EXLM,  SE_AT,SE_LCBR,SE_RCBR,SE_ACUT,                      PERC,   7   ,   8   ,   9   ,SE_PLUS,SE_QUES,\
+  //|-------+-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------+-------|
+     SE_DLR,  SE_QUO,SE_DQUO,SE_LPRN,SE_RPRN,SE_GRAV,                   SE_MORE,   4   ,   5   ,   6   ,SE_STAR,SE_EQAL,\
+  //|-------+-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------+-------|
+     SE_GBP,    HASH,SE_CIRC,SE_LBRC,SE_RBRC,SE_AMPR,                   SE_LESS,   1   ,   2   ,   3   ,SE_SLSH,SE_BSLH,\
+  //|-------+-------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-------+-------|
+                             SE_PARA, _____, RALT(KC_NUBS),     SE_HALF,SE_TILD,   0   \
+                              //`---------------------------'  `-----------------------'
   ),
+  
 
   [_RAISE] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
@@ -247,7 +255,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case ADJUST:
+    case _ADJUST:
         if (record->event.pressed) {
           layer_on(_ADJUST);
         } else {
