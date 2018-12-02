@@ -22,9 +22,9 @@ extern uint8_t is_master;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _QWERTY 0
-#define _LOWER 3
-#define _RAISE 4
-#define _ADJUST 16
+#define _LOWER 1
+#define _RAISE 2
+#define _ADJUST 3
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -79,8 +79,8 @@ enum macro_keycodes {
 #define KC_SE_AA KC_LBRC
 #define KC_SE_OE KC_SCLN
 #define KC_SE_AE KC_QUOT
-#define KC_PLAYP KC_MEDIA_PLAY_PAUSE
-#define KC_MUTE KC_AUDIO_MUTE
+#define KC_SE_PLAYP KC_MEDIA_PLAY_PAUSE
+#define KC_SE_MUTE KC_AUDIO_MUTE
 #define KC_SE_CIRC KC_RCBR
 #define KC_SE_PARA KC_GRAVE
 #define KC_SE_HALF KC_TILD
@@ -96,9 +96,9 @@ enum macro_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P, SE_AA,\
+        TAB,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P, SE_AA,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-        TAB,     A,     S,     D,     F,     G,                      H,     J,     K,     L, SE_OE, SE_AE,\
+        ESC,     A,     S,     D,     F,     G,                      H,     J,     K,     L, SE_OE, SE_AE,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LCTL,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,  RSFT,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-------+-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------+-------|
      SE_GBP,    HASH,SE_CIRC,SE_LBRC,SE_RBRC,SE_AMPR,                   SE_LESS,   1   ,   2   ,   3   ,SE_SLSH,SE_BSLH,\
   //|-------+-------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-------+-------|
-                             SE_PARA, _____, RALT(KC_NUBS),     SE_HALF,SE_TILD,   0   \
+                             SE_PARA, TRNS, RALT(KC_NUBS),     SE_HALF,SE_TILD,   0   \
                               //`---------------------------'  `-----------------------'
   ),
   
@@ -126,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       _____, _____, _____, _____, _____, _____,                   LEFT,  DOWN,    UP, RIGHT, _____, _____,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____, _____, _____, _____, _____, _____,                  PLAYP,  VOLD,  VOLU,  MUTE, _____, _____,\
+      _____, _____, _____, _____, _____, _____,                  SE_PLAYP,  VOLD,  VOLU,  SE_MUTE, _____, _____,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   GUIEI, MYLOWER,   SPC,      ENT, MYRAISE, ALTKN \
                               //`--------------------'  `--------------------'
@@ -255,7 +255,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case _ADJUST:
+    case ADJUST:
         if (record->event.pressed) {
           layer_on(_ADJUST);
         } else {
