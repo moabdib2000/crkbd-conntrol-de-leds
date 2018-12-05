@@ -93,6 +93,9 @@ enum macro_keycodes {
 #define KC_SE_STAR KC_PIPE
 #define KC_SE_QUES S(KC_MINS)
 #define KC_SE_BSLH RALT(KC_MINS)
+#define KC_SE_PIPE RALT(KC_NUBS)
+
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_kc( \
@@ -116,24 +119,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-------+-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------+-------|
      SE_GBP,    HASH,SE_CIRC,SE_LBRC,SE_RBRC,SE_AMPR,                   SE_LESS,   1   ,   2   ,   3   ,SE_SLSH,SE_BSLH,\
   //|-------+-------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-------+-------|
-                             SE_PARA, TRNS, NUBS,     SE_HALF,SE_TILD,   0   \
-                              //`---------------------------'  `-----------------------'
+                                     SE_PARA,  TRNS, SE_PIPE,   SE_HALF,SE_TILD,   0   \
+                                  //`-----------------------'  `-----------------------'
   ),
+  
+  
+  
   
 
   [_RAISE] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-      _____, _____, _____, _____, _____, _____,                   HOME,  PGDN,  PGUP,  END,  _____, _____,\
+      RST  ,  LRST, _____, _____, _____, _____,                   HOME,  PGDN,  PGUP,  END,  XXXXX, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____, _____, _____, _____, _____, _____,                   LEFT,  DOWN,    UP, RIGHT, _____, _____,\
+      LTOG , LHUI , LSAI , LVAI , _____, _____,                   LEFT,  DOWN,    UP, RIGHT, XXXXX, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____, _____, _____, _____, _____, _____,                  SE_PLAYP,  VOLD,  VOLU,  SE_MUTE, _____, _____,\
+      LMOD , LHUD , LSAD , LVAD , _____, _____,                   MPLY,  VOLD,  VOLU,  MUTE, XXXXX, XXXXX,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  GUIEI, MYLOWER,   SPC,      ENT, MYRAISE, ALTKN \
+                                 LALT, TRNS,    MYSFT,     SPC,   TRNS, LGUI \
                               //`--------------------'  `--------------------'
   ),
   
  
+ /*
   [_ADJUST] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
         RST,  LRST, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
@@ -144,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   GUIEI, MYLOWER,   SPC,      ENT, MYRAISE, ALTKN \
                               //`--------------------'  `--------------------'
-  )
+  )*/
 };
 
 int RGB_current_mode;
