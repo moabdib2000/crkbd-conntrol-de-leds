@@ -52,6 +52,7 @@ enum macro_keycodes {
 #define KC_LSAD  RGB_SAD
 #define KC_LVAI  RGB_VAI
 #define KC_LVAD  RGB_VAD
+#define KC_JANZON KC_J
 #define KC_LMOD  RGB_MOD
 #define KC_CTLTB CTL_T(KC_TAB)
 #define KC_GUIEI GUI_T(KC_LANG2)
@@ -115,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-------+-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------+-------|
      SE_GBP,    HASH,SE_CIRC,SE_LBRC,SE_RBRC,SE_AMPR,                   SE_LESS,   1   ,   2   ,   3   ,SE_SLSH,SE_BSLH,\
   //|-------+-------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-------+-------|
-                             SE_PARA, TRNS, RALT(KC_NUBS),     SE_HALF,SE_TILD,   0   \
+                             SE_PARA, TRNS, NUBS,     SE_HALF,SE_TILD,   0   \
                               //`---------------------------'  `-----------------------'
   ),
   
@@ -229,6 +230,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   switch (keycode) {
+    case KC_JANZON:
+      if (record->event.pressed) {
+        for(int i=0; i < 6; i ++) {
+          rgblight_setrgb_at(0, 0, 255, i);
+        }
+        for(int i=6; i < 20; i ++) {
+          rgblight_setrgb_at(255, 127, 80, i);
+        }
+      }
+      return false;
+      break;
     case QWERTY:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_QWERTY);
