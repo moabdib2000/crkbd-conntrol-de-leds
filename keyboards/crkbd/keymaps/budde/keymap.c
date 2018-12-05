@@ -32,7 +32,8 @@ enum custom_keycodes {
   RAISE,
   ADJUST,
   BACKLIT,
-  RGBRST
+  RGBRST,
+  KC_JANZON
 };
 
 enum macro_keycodes {
@@ -52,7 +53,6 @@ enum macro_keycodes {
 #define KC_LSAD  RGB_SAD
 #define KC_LVAI  RGB_VAI
 #define KC_LVAD  RGB_VAD
-#define KC_JANZON KC_J
 #define KC_LMOD  RGB_MOD
 #define KC_CTLTB CTL_T(KC_TAB)
 #define KC_GUIEI GUI_T(KC_LANG2)
@@ -90,7 +90,7 @@ enum macro_keycodes {
 #define KC_SE_MORE S(KC_NUBS)
 #define KC_SE_LESS KC_NUBS
 #define KC_SE_PLUS KC_MINS
-#define KC_SE_STAR KC_PIPE
+#define KC_SE_ASTR KC_PIPE
 #define KC_SE_QUES S(KC_MINS)
 #define KC_SE_BSLH RALT(KC_MINS)
 #define KC_SE_PIPE RALT(KC_NUBS)
@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------.                  ,-----------------------------------------------.
     SE_EURO,    EXLM,  SE_AT,SE_LCBR,SE_RCBR,SE_ACUT,                      PERC,   7   ,   8   ,   9   ,SE_PLUS,SE_QUES,\
   //|-------+-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------+-------|
-     SE_DLR,  SE_QUO,SE_DQUO,SE_LPRN,SE_RPRN,SE_GRAV,                   SE_MORE,   4   ,   5   ,   6   ,SE_STAR,SE_EQAL,\
+     SE_DLR,  SE_QUO,SE_DQUO,SE_LPRN,SE_RPRN,SE_GRAV,                   SE_MORE,   4   ,   5   ,   6   ,SE_ASTR,SE_EQAL,\
   //|-------+-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------+-------|
      SE_GBP,    HASH,SE_CIRC,SE_LBRC,SE_RBRC,SE_AMPR,                   SE_LESS,   1   ,   2   ,   3   ,SE_SLSH,SE_BSLH,\
   //|-------+-------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-------+-------|
@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-      RST  ,  LRST, _____, _____, _____, _____,                   HOME,  PGDN,  PGUP,  END,  XXXXX, XXXXX,\
+      RST  ,  LRST, _____, _____, _____, JANZON,                   HOME,  PGDN,  PGUP,  END,  XXXXX, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       LTOG , LHUI , LSAI , LVAI , _____, _____,                   LEFT,  DOWN,    UP, RIGHT, XXXXX, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
@@ -239,15 +239,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case KC_JANZON:
       if (record->event.pressed) {
-        for(int i=0; i < 6; i ++) {
-          rgblight_setrgb_at(0, 0, 255, i);
-        }
-        for(int i=6; i < 20; i ++) {
-          rgblight_setrgb_at(255, 127, 80, i);
+        if(isLeftHand) {
+          for(int i=0; i < 6; i ++) {
+            rgblight_setrgb_at(0, 0, 255, i);
+          }
+        } else {
+          for(int j=0; j < 6; j ++) {
+            rgblight_setrgb_at(255, 0, 0, j);
+          }
         }
       }
       return false;
       break;
+	  
     case QWERTY:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_QWERTY);
@@ -258,9 +262,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         layer_on(_LOWER);
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+		 if(isLeftHand) {
+          for(int i=0; i < 6; i ++) {
+            rgblight_setrgb_at(0, 255, 255, i);
+          }
+        } else {
+          for(int j=0; j < 6; j ++) {
+            rgblight_setrgb_at(255, 255, 0, j);
+          }
+        }
       } else {
         layer_off(_LOWER);
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+		 if(isLeftHand) {
+          for(int i=0; i < 6; i ++) {
+            rgblight_setrgb_at(0, 0, 255, i);
+          }
+        } else {
+          for(int j=0; j < 6; j ++) {
+            rgblight_setrgb_at(255, 0, 0, j);
+          }
+        }
       }
       return false;
       break;
