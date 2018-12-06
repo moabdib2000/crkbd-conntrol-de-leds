@@ -129,11 +129,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-      RST  ,  LRST, _____, _____, _____, JANZON,                   HOME,  PGDN,  PGUP,  END,  XXXXX, XXXXX,\
+      RST  , LRST , _____, _____, _____,JANZON,                   HOME,  PGDN,  PGUP,  END,  XXXXX, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      LTOG , LHUI , LSAI , LVAI , _____, _____,                   LEFT,  DOWN,    UP, RIGHT, XXXXX, XXXXX,\
+      LTOG , LHUI , LSAI , LVAI , LMOD , _____,                   LEFT,  DOWN,   UP , RIGHT, XXXXX, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      LMOD , LHUD , LSAD , LVAD , _____, _____,                   MPLY,  VOLD,  VOLU,  MUTE, XXXXX, XXXXX,\
+     _____ , LHUD , LSAD , LVAD , _____, _____,                   MPLY,  VOLD,  VOLU,  MUTE, XXXXX, XXXXX,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                  LALT, TRNS,    MYSFT,     SPC,   TRNS, LGUI \
                               //`--------------------'  `--------------------'
@@ -241,11 +241,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         if(isLeftHand) {
           for(int i=0; i < 6; i ++) {
-            rgblight_setrgb_at(0, 0, 255, i);
+            rgblight_sethsv_orange_at(i);
           }
         } else {
           for(int j=0; j < 6; j ++) {
-            rgblight_setrgb_at(255, 0, 0, j);
+            rgblight_sethsv_azure_at(j);
           }
         }
       }
@@ -258,43 +258,64 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case LOWER:
+	  
+    case KC_MYLOWER:
       if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+ 		layer_on(_LOWER);
+//      update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
 		 if(isLeftHand) {
           for(int i=0; i < 6; i ++) {
-            rgblight_setrgb_at(0, 255, 255, i);
+            rgblight_sethsv_springgreen_at(i);
           }
         } else {
           for(int j=0; j < 6; j ++) {
-            rgblight_setrgb_at(255, 255, 0, j);
-          }
-        }
+            rgblight_sethsv_springgreen_at(j);
+          }   
+		}
       } else {
-        layer_off(_LOWER);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+		layer_off(_LOWER);  
+//		update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
 		 if(isLeftHand) {
           for(int i=0; i < 6; i ++) {
-            rgblight_setrgb_at(0, 0, 255, i);
+            rgblight_sethsv_orange_at(i);
           }
         } else {
           for(int j=0; j < 6; j ++) {
-            rgblight_setrgb_at(255, 0, 0, j);
+            rgblight_sethsv_azure_at(j);
           }
         }
+
       }
-      return false;
+      return true;
       break;
-    case RAISE:
+	  
+    case KC_MYRAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+//        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+	    if(isLeftHand) {
+          for(int i=0; i < 6; i ++) {
+            rgblight_sethsv_coral_at(i);
+          }
+        } else {
+          for(int j=0; j < 6; j ++) {
+            rgblight_sethsv_coral_at(j);
+          }
+        }
       } else {
         layer_off(_RAISE);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+ //       update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+		if(isLeftHand) {
+          for(int i=0; i < 6; i ++) {
+            rgblight_sethsv_orange_at(i);
+          }
+        } else {
+          for(int j=0; j < 6; j ++) {
+            rgblight_sethsv_azure_at(j);
+          }
+        }
       }
-      return false;
+      return true;
       break;
     case ADJUST:
         if (record->event.pressed) {
