@@ -129,11 +129,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-      RST  , LRST , _____, _____, _____,JANZON,                   HOME,  PGDN,  PGUP,  END,  XXXXX, XXXXX,\
+      RST  , LRST , _____, _____, _____,JANZON,                   HOME,  PGDN,  PGUP,  END,   INS,  PSCR,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      LTOG , LHUI , LSAI , LVAI , LMOD , _____,                   LEFT,  DOWN,   UP , RIGHT, XXXXX, XXXXX,\
+      LTOG , LHUI , LSAI , LVAI , LMOD , _____,                   LEFT,  DOWN,   UP , RIGHT, XXXXX, VOLU,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-     _____ , LHUD , LSAD , LVAD , _____, _____,                   MPLY,  VOLD,  VOLU,  MUTE, XXXXX, XXXXX,\
+     _____ , LHUD , LSAD , LVAD , _____, _____,                   MPRV,  MUTE,  MPLY,  MNXT, XXXXX, VOLD,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                  LALT, TRNS,    MYSFT,     SPC,   TRNS, LGUI \
                               //`--------------------'  `--------------------'
