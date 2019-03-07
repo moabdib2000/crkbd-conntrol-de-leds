@@ -113,9 +113,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
   [_LOWER] = LAYOUT_kc( \
   //,-----------------------------------------------.                  ,-----------------------------------------------.
-    SE_EURO,    EXLM,  SE_AT,SE_LCBR,SE_RCBR,SE_ACUT,                      PERC,   7   ,   8   ,   9   ,SE_PLUS,SE_QUES,\
+    SE_EURO,    EXLM,  SE_AT,SE_LCBR,SE_RCBR,SE_ACUT,                      PERC,   7   ,   8   ,   9   ,SE_ASTR,SE_QUES,\
   //|-------+-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------+-------|
-     SE_DLR,  SE_QUO,SE_DQUO,SE_LPRN,SE_RPRN,SE_GRAV,                   SE_MORE,   4   ,   5   ,   6   ,SE_ASTR,SE_EQAL,\
+     SE_DLR,  SE_QUO,SE_DQUO,SE_LPRN,SE_RPRN,SE_GRAV,                   SE_MORE,   4   ,   5   ,   6   ,SE_PLUS,SE_EQAL,\
   //|-------+-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------+-------|
      SE_GBP,    HASH,SE_CIRC,SE_LBRC,SE_RBRC,SE_AMPR,                   SE_LESS,   1   ,   2   ,   3   ,SE_SLSH,SE_BSLH,\
   //|-------+-------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-------+-------|
@@ -241,15 +241,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         if(isLeftHand) {
           for(int i=0; i < 6; i ++) {
-            rgblight_sethsv_orange_at(i);
+            rgblight_setrgb_at(255, 30, 0, i);
           }
         } else {
           for(int j=0; j < 6; j ++) {
-            rgblight_sethsv_azure_at(j);
+            rgblight_setrgb_at(255, 30, 0, j);
           }
         }
       }
-      return false;
+      return true;
       break;
 	  
     case QWERTY:
@@ -263,7 +263,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
  		layer_on(_LOWER);
 //      update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-		 if(isLeftHand) {
+/*		 if(isLeftHand) {
           for(int i=0; i < 6; i ++) {
             rgblight_sethsv_springgreen_at(i);
           }
@@ -271,11 +271,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           for(int j=0; j < 6; j ++) {
             rgblight_sethsv_springgreen_at(j);
           }   
-		}
+		}*/
       } else {
 		layer_off(_LOWER);  
 //		update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-		 if(isLeftHand) {
+		/* if(isLeftHand) {
           for(int i=0; i < 6; i ++) {
             rgblight_sethsv_orange_at(i);
           }
@@ -283,7 +283,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           for(int j=0; j < 6; j ++) {
             rgblight_sethsv_azure_at(j);
           }
-        }
+        }*/
 
       }
       return true;
@@ -293,7 +293,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         layer_on(_RAISE);
 //        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-	    if(isLeftHand) {
+/*	    if(isLeftHand) {
           for(int i=0; i < 6; i ++) {
             rgblight_sethsv_coral_at(i);
           }
@@ -301,11 +301,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           for(int j=0; j < 6; j ++) {
             rgblight_sethsv_coral_at(j);
           }
-        }
+        }*/
       } else {
         layer_off(_RAISE);
  //       update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-		if(isLeftHand) {
+/*		if(isLeftHand) {
           for(int i=0; i < 6; i ++) {
             rgblight_sethsv_orange_at(i);
           }
@@ -313,7 +313,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           for(int j=0; j < 6; j ++) {
             rgblight_sethsv_azure_at(j);
           }
-        }
+        }*/
       }
       return true;
       break;
