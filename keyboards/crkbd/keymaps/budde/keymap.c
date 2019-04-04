@@ -1,9 +1,11 @@
 #include QMK_KEYBOARD_H
 #include "bootloader.h"
+
 #ifdef PROTOCOL_LUFA
   #include "lufa.h"
   #include "split_util.h"
 #endif
+
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif
@@ -58,6 +60,7 @@ enum macro_keycodes {
 #define KC_GUIEI GUI_T(KC_LANG2)
 #define KC_ALTKN ALT_T(KC_LANG1)
 
+#define KC_CTRL LM(3, MOD_LCTL)
 #define KC_MYLOWER LT(_LOWER, KC_DEL)
 #define KC_MYRAISE LT(_RAISE, KC_ENT)
 #define KC_MYSFT MT(MOD_LSFT, KC_BSPC)
@@ -104,9 +107,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
         ESC,     A,     S,     D,     F,     G,                      H,     J,     K,     L, SE_OE, SE_AE,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LCTL,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,  RSFT,\
+      //  LCTL,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,  RSFT,
+      CTRL,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,  RSFT,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                 LALT, MYLOWER, MYSFT,     SPC, MYRAISE, LGUI \
+                                LALT, MYLOWER, MYSFT,     SPC, MYRAISE, LGUI \
                               //`--------------------'  `--------------------'
   ),
 
@@ -115,17 +119,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------.                  ,-----------------------------------------------.
     SE_EURO,    EXLM,  SE_AT,SE_LCBR,SE_RCBR,SE_ACUT,                      PERC,   7   ,   8   ,   9   ,SE_ASTR,SE_QUES,\
   //|-------+-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------+-------|
-     SE_DLR,  SE_QUO,SE_DQUO,SE_LPRN,SE_RPRN,SE_GRAV,                   SE_MORE,   4   ,   5   ,   6   ,SE_PLUS,SE_EQAL,\
+    SE_DLR,  SE_QUO,SE_DQUO,SE_LPRN,SE_RPRN,SE_GRAV,                   SE_MORE,   4   ,   5   ,   6   ,SE_PLUS,SE_EQAL,\
   //|-------+-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------+-------|
-     SE_GBP,    HASH,SE_CIRC,SE_LBRC,SE_RBRC,SE_AMPR,                   SE_LESS,   1   ,   2   ,   3   ,SE_SLSH,SE_BSLH,\
+    SE_GBP,    HASH,SE_CIRC,SE_LBRC,SE_RBRC,SE_AMPR,                   SE_LESS,   1   ,   2   ,   3   ,SE_SLSH,SE_BSLH,\
   //|-------+-------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-------+-------|
-                                     SE_PARA,  TRNS, SE_PIPE,   SE_HALF,SE_TILD,   0   \
+                                    SE_PARA,  TRNS, SE_PIPE,   SE_HALF,SE_TILD,   0   \
                                   //`-----------------------'  `-----------------------'
   ),
-  
-  
-  
-  
+    
 
   [_RAISE] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
@@ -133,26 +134,85 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       LTOG , LHUI , LSAI , LVAI , LMOD , _____,                   LEFT,  DOWN,   UP , RIGHT, XXXXX, VOLU,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-     _____ , LHUD , LSAD , LVAD , _____, _____,                   MPRV,  MUTE,  MPLY,  MNXT, XXXXX, VOLD,\
+    _____ , LHUD , LSAD , LVAD , _____, _____,                   MPRV,  MUTE,  MPLY,  MNXT, XXXXX, VOLD,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                 LALT, TRNS,    MYSFT,     SPC,   TRNS, LGUI \
+                                LALT, TRNS,    MYSFT,     SPC,   TRNS, LGUI \
                               //`--------------------'  `--------------------'
   ),
   
- 
- /*
+
+
+  [_ADJUST] = LAYOUT_kc( \
+  //,-----------------------------------------.                ,-----------------------------------------.
+        _____,  _____, _____, _____, _____, _____,                  _____, _____, _____, _____, _____, _____,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      _____,  _____,  _____,  _____, _____, _____,                  _____, _____, _____, _____, _____, _____,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      _____,  _____,  _____,  _____, _____, _____,                  _____, _____, _____, _____, _____, _____,\
+  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+                                  _____, _____,   _____,      _____, _____, _____ \
+                              //`--------------------'  `--------------------'
+  )
+
+/*
   [_ADJUST] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
         RST,  LRST, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LTOG,  LHUI,  LSAI,  LVAI, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+      LTOG,  LHUI,  LSAI,  LVAI, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+      LMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   GUIEI, MYLOWER,   SPC,      ENT, MYRAISE, ALTKN \
                               //`--------------------'  `--------------------'
   )*/
 };
+
+
+uint32_t layer_state_set_user(uint32_t state) {
+    switch (biton32(state)) {
+    case _LOWER:
+        if(isLeftHand) {
+
+          rgblight_setrgb_at(255, 30, 0, 13);
+
+        } else {
+
+          for(int i=10; i < 21; i ++) {
+            if(i != 13){
+              rgblight_sethsv_springgreen_at(i);
+            }
+          }
+
+        }
+        break;
+    case _RAISE:
+
+        if(!isLeftHand) {
+          rgblight_setrgb_at(255, 30, 0, 13);
+          rgblight_sethsv_springgreen_at(8);
+          rgblight_sethsv_springgreen_at(11);
+          rgblight_sethsv_springgreen_at(16);
+          rgblight_sethsv_springgreen_at(19);
+        }
+
+        break;
+    case _ADJUST:
+      if(isLeftHand){
+        rgblight_setrgb_at(255, 30, 0, 26);
+        rgblight_sethsv_springgreen_at(21);
+        rgblight_sethsv_springgreen_at(20);
+        rgblight_sethsv_springgreen_at(15);
+        rgblight_sethsv_springgreen_at(12);
+      }
+      break;
+    default:
+        rgblight_enable();
+        break;
+    }
+  return state;
+}
+
 
 int RGB_current_mode;
 
@@ -196,7 +256,7 @@ const char *read_keylogs(void);
 // const char *read_timelog(void);
 
 void matrix_scan_user(void) {
-   iota_gfx_task();
+  iota_gfx_task();
 }
 
 void matrix_render_user(struct CharacterMatrix *matrix) {
@@ -251,17 +311,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return true;
       break;
-	  
+    
     case QWERTY:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
       break;
-	  
+    
     case KC_MYLOWER:
       if (record->event.pressed) {
- 		layer_on(_LOWER);
+        layer_on(_LOWER);
 //      update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
 /*		 if(isLeftHand) {
           for(int i=0; i < 6; i ++) {
@@ -271,11 +331,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           for(int j=0; j < 6; j ++) {
             rgblight_sethsv_springgreen_at(j);
           }   
-		}*/
+    }*/
       } else {
-		layer_off(_LOWER);  
+        layer_off(_LOWER);  
 //		update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-		/* if(isLeftHand) {
+    /* if(isLeftHand) {
           for(int i=0; i < 6; i ++) {
             rgblight_sethsv_orange_at(i);
           }
@@ -288,7 +348,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return true;
       break;
-	  
+    
     case KC_MYRAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
@@ -304,7 +364,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }*/
       } else {
         layer_off(_RAISE);
- //       update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+//       update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
 /*		if(isLeftHand) {
           for(int i=0; i < 6; i ++) {
             rgblight_sethsv_orange_at(i);
@@ -347,4 +407,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
-
