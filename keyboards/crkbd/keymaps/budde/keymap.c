@@ -208,7 +208,7 @@ uint32_t layer_state_set_user(uint32_t state) {
       break;
     default:
         rgblight_enable();
-        rgblight_setrgb_at(0, 255, 0, 24);
+        // rgblight_setrgb_at(0, 255, 0, 24);
         break;
     }
   return state;

@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC, \
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,  \
   KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_PLUS, _______, KC_RCBR, KC_PIPE, \
-  _______,KC_NUBS,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,_______,_______,_______, _______, _______, \
+  KC_CAPS, KC_NUBS,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,_______,_______,_______, _______, _______, \
   _______, _______, CK_TOGG, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END \
 ),
 
@@ -111,11 +111,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_preonic_grid( \
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
   _______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL,  \
-  _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______, \
+  _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, _______,  _______, _______, \
   _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
 )
-
 
 };
 
@@ -124,18 +123,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case QWERTY:
           if (record->event.pressed) {
             set_single_persistent_default_layer(_QWERTY);
-          }
-          return false;
-          break;
-        case COLEMAK:
-          if (record->event.pressed) {
-            set_single_persistent_default_layer(_COLEMAK);
-          }
-          return false;
-          break;
-        case DVORAK:
-          if (record->event.pressed) {
-            set_single_persistent_default_layer(_DVORAK);
           }
           return false;
           break;
@@ -165,10 +152,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             #ifdef BACKLIGHT_ENABLE
               backlight_step();
             #endif
-            PORTE &= ~(1<<6);
           } else {
             unregister_code(KC_RSFT);
-            PORTE |= (1<<6);
           }
           return false;
           break;

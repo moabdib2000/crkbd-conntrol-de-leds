@@ -21,8 +21,6 @@ extern keymap_config_t keymap_config;
 
 enum planck_layers {
   _QWERTY,
-  _COLEMAK,
-  _DVORAK,
   _LOWER,
   _RAISE,
   _PLOVER,
@@ -31,8 +29,6 @@ enum planck_layers {
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
   PLOVER,
   BACKLIT,
   EXT_PLV
@@ -107,8 +103,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT_planck_grid( 
     _______, _______, _______, _______, _______, _______,    	     KC_HOME,  KC_PGDN, KC_PGUP, KC_END, _______, _______, \
     _______, _______, _______, _______, _______, _______,    		 KC_LEFT,  KC_DOWN,   KC_UP, KC_RIGHT, _______, _______, \
-    _______, _______, _______, _______, _______, _______, 			 KC_MEDIA_PLAY_PAUSE, KC_VOLD, KC_VOLU, KC_AUDIO_MUTE, _______, _______, \
-    _______, _______, _______, _______, _______, _______, 			 _______,  _______, _______, _______, _______, _______ \
+    BL_BRTG, _______, _______, _______, _______, _______, 			 KC_MEDIA_PLAY_PAUSE, KC_VOLD, KC_VOLU, KC_AUDIO_MUTE, _______, _______, \
+    BL_INC, BL_DEC, BL_STEP, _______, _______, _______, 			 _______,  _______, _______, _______, _______, _______ \
 ),
 
 /* Raise
@@ -135,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|Plover|      |
+ * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|      |      |Plover|      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -144,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_planck_grid(
     _______, RESET,   DEBUG,    RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL ,
-    _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______,
+    _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, _______,  PLOVER,  _______,
     _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
@@ -164,23 +160,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        print("mode just switched to qwerty and this is a huge string\n");
         set_single_persistent_default_layer(_QWERTY);
       }
       return false;
       break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      return false;
-      break;
-    case DVORAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_DVORAK);
-      }
-      return false;
-      break;
+
     case BACKLIT:
       if (record->event.pressed) {
         register_code(KC_RSFT);
