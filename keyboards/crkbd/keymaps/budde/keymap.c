@@ -35,11 +35,11 @@ enum custom_keycodes {
   ADJUST,
   BACKLIT,
   RGBRST,
-  KC_JANZON
+  KC_JANZON // tribute to /u/johananasen aka Janzon
 };
 
 enum macro_keycodes {
-  KC_SAMPLEMACRO,
+  KC_SAMPLEMACRO, // I believe this is the macro that allows me to just but "Q" in the keymap instead of KC_Q, but I'm not 100% sure :)
 };
 
 #define KC______ KC_TRNS
@@ -60,7 +60,7 @@ enum macro_keycodes {
 #define KC_GUIEI GUI_T(KC_LANG2)
 #define KC_ALTKN ALT_T(KC_LANG1)
 
-#define KC_CTRL LM(3, MOD_LCTL)
+#define KC_CTRL LM(3, MOD_LCTL) // shifts to layer 3 (adjust) so that the LEDs can fire up on that layer
 #define KC_MYLOWER LT(_LOWER, KC_DEL)
 #define KC_MYRAISE LT(_RAISE, KC_ENT)
 #define KC_MYSFT MT(MOD_LSFT, KC_BSPC)
@@ -102,23 +102,22 @@ enum macro_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_kc( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-        TAB,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P, SE_AA,\
+  //,-----------------------------------------.                ,-----------------------------------------.  // all SE_ keys are my own custom keybinds to translate
+        TAB,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P, SE_AA,\ // input to swedish characters, and I think it's easier
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|  // to follow along if they are not defined in the actual
+        ESC,     A,     S,     D,     F,     G,                      H,     J,     K,     L, SE_OE, SE_AE,\ // layout config.
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-        ESC,     A,     S,     D,     F,     G,                      H,     J,     K,     L, SE_OE, SE_AE,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      //  LCTL,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,  RSFT,
-      CTRL,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,  RSFT,\
+       CTRL,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,  LSFT,\ // -- didn't know what to put the far right here... why not left shift
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                LALT, MYLOWER, MYSFT,     SPC, MYRAISE, LGUI \
+                                LALT, MYLOWER, MYSFT,     SPC, MYRAISE, LSFT \ // same here... another tribute to Janzon who had 9+ LSHIFTs at one point... I think
                               //`--------------------'  `--------------------'
   ),
 
-  
+
   [_LOWER] = LAYOUT_kc( \
   //,-----------------------------------------------.                  ,-----------------------------------------------.
-    SE_EURO,    EXLM,  SE_AT,SE_LCBR,SE_RCBR,SE_ACUT,                      PERC,   7   ,   8   ,   9   ,SE_ASTR,SE_QUES,\
-  //|-------+-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------+-------|
+    SE_EURO,    EXLM,  SE_AT,SE_LCBR,SE_RCBR,SE_ACUT,                      PERC,   7   ,   8   ,   9   ,SE_ASTR,SE_QUES,\ // everything math/number oriented on right side,
+  //|-------+-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------+-------|  // special characters on left side
     SE_DLR,  SE_QUO,SE_DQUO,SE_LPRN,SE_RPRN,SE_GRAV,                   SE_MORE,   4   ,   5   ,   6   ,SE_PLUS,SE_EQAL,\
   //|-------+-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------+-------|
     SE_GBP,    HASH,SE_CIRC,SE_LBRC,SE_RBRC,SE_AMPR,                   SE_LESS,   1   ,   2   ,   3   ,SE_SLSH,SE_BSLH,\
@@ -126,12 +125,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                     SE_PARA,  TRNS, SE_PIPE,   SE_HALF,SE_TILD,   0   \
                                   //`-----------------------'  `-----------------------'
   ),
-    
+
 
   [_RAISE] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-      RST  , LRST , _____, _____, _____,JANZON,                   HOME,  PGDN,  PGUP,  END,   INS,  PSCR,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      RST  , LRST , _____, _____, _____,JANZON,                   HOME,  PGDN,  PGUP,  END,   INS,  PSCR,\  // left side for RGB controls and reset button
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|  // right side for navigation and media keys
       LTOG , LHUI , LSAI , LVAI , LMOD , _____,                   LEFT,  DOWN,   UP , RIGHT, XXXXX, VOLU,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
     _____ , LHUD , LSAD , LVAD , _____, _____,                   MPRV,  MUTE,  MPLY,  MNXT, XXXXX, VOLD,\
@@ -139,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 LALT, TRNS,    MYSFT,     SPC,   TRNS, LGUI \
                               //`--------------------'  `--------------------'
   ),
-  
+
 
 
   [_ADJUST] = LAYOUT_kc( \
@@ -154,18 +153,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               //`--------------------'  `--------------------'
   )
 
-/*
-  [_ADJUST] = LAYOUT_kc( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-        RST,  LRST, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      LTOG,  LHUI,  LSAI,  LVAI, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      LMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  GUIEI, MYLOWER,   SPC,      ENT, MYRAISE, ALTKN \
-                              //`--------------------'  `--------------------'
-  )*/
 };
 
 
@@ -174,41 +161,48 @@ uint32_t layer_state_set_user(uint32_t state) {
     case _LOWER:
         if(isLeftHand) {
 
-          rgblight_setrgb_at(255, 30, 0, 13);
+          rgblight_setrgb_at(148, 0, 211, 13); // sets LED number 13 (lower) to purple on left hand
 
         } else {
 
           for(int i=10; i < 21; i ++) {
             if(i != 13){
-              rgblight_sethsv_springgreen_at(i);
+              rgblight_setrgb_at(0, 255, 150, i); // sets LED 10-21 but not 13 to cyan on right hand
             }
           }
-
         }
         break;
     case _RAISE:
 
         if(!isLeftHand) {
-          rgblight_setrgb_at(255, 30, 0, 13);
-          rgblight_sethsv_springgreen_at(8);
-          rgblight_sethsv_springgreen_at(11);
-          rgblight_sethsv_springgreen_at(16);
-          rgblight_sethsv_springgreen_at(19);
+          rgblight_setrgb_at(148, 0, 211, 13); // same thing here, sets LED 13 (raise) to purple and HJKL to cyan
+          rgblight_setrgb_at(0, 255, 150, 8);
+          rgblight_setrgb_at(0, 255, 150, 11);
+          rgblight_setrgb_at(0, 255, 150, 16);
+          rgblight_setrgb_at(0, 255, 150, 19);
         }
 
         break;
     case _ADJUST:
       if(isLeftHand){
-        rgblight_setrgb_at(255, 30, 0, 26);
-        rgblight_sethsv_springgreen_at(21);
-        rgblight_sethsv_springgreen_at(20);
-        rgblight_sethsv_springgreen_at(15);
-        rgblight_sethsv_springgreen_at(12);
+        rgblight_setrgb_at(148,0,211, 26); // control purple, ZXCV cyan.
+        rgblight_setrgb_at(0,255,150,21);
+        rgblight_setrgb_at(0,255,150,20);
+        rgblight_setrgb_at(0,255,150,15);
+        rgblight_setrgb_at(0,255,150,12);
       }
       break;
     default:
         rgblight_enable();
-        // rgblight_setrgb_at(0, 255, 0, 24);
+        if(isLeftHand) {                        // this sets the underside LEDs (1-6) to cyan on both sides and does nothing with the rest.
+          for(int i=0; i < 6; i ++) {           // this also means that if I manually change LED color to red, the bottom 6 LEDS will ALWAYS be cyan.
+            rgblight_setrgb_at(0, 255, 150, i); // it's the only way I found to make it switch back to underglow LEDs after I've used another layer.
+          }
+        } else {
+          for(int j=0; j < 6; j ++) {
+            rgblight_setrgb_at(0, 255, 150, j);
+          }
+        }
         break;
     }
   return state;
@@ -298,83 +292,45 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   switch (keycode) {
-    case KC_JANZON:
+    case KC_JANZON:   // original LED underglow testing with Janzon. not used at the moment, but kept the code for nostalgia
       if (record->event.pressed) {
         if(isLeftHand) {
-          for(int i=0; i < 6; i ++) {
-            rgblight_setrgb_at(255, 30, 0, i);
-          }
-        } else {
-          for(int j=0; j < 6; j ++) {
-            rgblight_setrgb_at(255, 30, 0, j);
-          }
-        }
-      }
-      return true;
-      break;
-    
-    case QWERTY:
-      if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_QWERTY);
-      }
-      return false;
-      break;
-    
-    case KC_MYLOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-//      update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-/*		 if(isLeftHand) {
           for(int i=0; i < 6; i ++) {
             rgblight_sethsv_springgreen_at(i);
           }
         } else {
           for(int j=0; j < 6; j ++) {
             rgblight_sethsv_springgreen_at(j);
-          }   
-    }*/
+          }
+        }
+      }
+      return true;
+      break;
+
+    case QWERTY:
+      if (record->event.pressed) {
+        persistent_default_layer_set(1UL<<_QWERTY);
+      }
+      return false;
+      break;
+
+    case KC_MYLOWER:
+      if (record->event.pressed) {
+        layer_on(_LOWER);
+
       } else {
-        layer_off(_LOWER);  
-//		update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-    /* if(isLeftHand) {
-          for(int i=0; i < 6; i ++) {
-            rgblight_sethsv_orange_at(i);
-          }
-        } else {
-          for(int j=0; j < 6; j ++) {
-            rgblight_sethsv_azure_at(j);
-          }
-        }*/
+        layer_off(_LOWER);
+
 
       }
       return true;
       break;
-    
+
     case KC_MYRAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
-//        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-/*	    if(isLeftHand) {
-          for(int i=0; i < 6; i ++) {
-            rgblight_sethsv_coral_at(i);
-          }
-        } else {
-          for(int j=0; j < 6; j ++) {
-            rgblight_sethsv_coral_at(j);
-          }
-        }*/
       } else {
         layer_off(_RAISE);
-//       update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-/*		if(isLeftHand) {
-          for(int i=0; i < 6; i ++) {
-            rgblight_sethsv_orange_at(i);
-          }
-        } else {
-          for(int j=0; j < 6; j ++) {
-            rgblight_sethsv_azure_at(j);
-          }
-        }*/
       }
       return true;
       break;
