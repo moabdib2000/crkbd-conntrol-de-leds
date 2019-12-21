@@ -101,7 +101,7 @@ enum macro_keycodes {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT_kc( \
+  [_QWERTY] = LAYOUT_kc(
   //,-----------------------------------------.                ,-----------------------------------------.  // all SE_ keys are my own custom keybinds to translate
         TAB,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P, SE_AA,\ // input to swedish characters, and I think it's easier
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|  // to follow along if they are not defined in the actual
